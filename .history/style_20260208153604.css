@@ -30,8 +30,7 @@
   --fs-h4: clamp(1.44rem, 1.2624rem + 0.7894vw, 1.9531rem);
   --fs-h3: clamp(2.728rem, 2.4811rem + 2.0975vw, 3.4414rem);
   --fs-h2: clamp(3.0736rem, 3.735rem + 3.5049vw, 4.0518rem);
-  --fs-h1: clamp(3.5883rem, 3.5rem + 4vw, 6rem);
-  --fs-h1: clamp(3.0736rem, 3.735rem + 3.5049vw, 4.0518rem);
+  --fs-h1: clamp(4.5883rem, 4.5rem + 4vw, 6rem);
 }
 
 a {
@@ -551,7 +550,6 @@ body {
 
 .image-holder img {
   height: 400px;
-  aspect-ratio: 2/1;
 
   border-radius: 6px;
 }
@@ -593,11 +591,6 @@ body {
     margin-top: 4rem;
     gap: 4rem;
     align-items: start;
-  }
-
-  .image-holder {
-    padding: 1rem;
-    margin-bottom: 24px;
   }
 }
 fieldset {

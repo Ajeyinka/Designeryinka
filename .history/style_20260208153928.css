@@ -31,7 +31,6 @@
   --fs-h3: clamp(2.728rem, 2.4811rem + 2.0975vw, 3.4414rem);
   --fs-h2: clamp(3.0736rem, 3.735rem + 3.5049vw, 4.0518rem);
   --fs-h1: clamp(3.5883rem, 3.5rem + 4vw, 6rem);
-  --fs-h1: clamp(3.0736rem, 3.735rem + 3.5049vw, 4.0518rem);
 }
 
 a {
