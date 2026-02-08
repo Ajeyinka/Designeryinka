@@ -404,7 +404,7 @@ window.addEventListener("load", () => {
 });
 
 (function () {
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("load", () => {
     gsap.registerPlugin(ScrollTrigger);
 
     const textElements = document.querySelectorAll(".txt p");

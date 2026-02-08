@@ -1155,9 +1155,8 @@ textarea {
   font-size: 20px;
 }
 
-.exps {
-  margin-top: 40px;
-  margin-bottom: 0px;
+.exp {
+  margin-bottom: 24px;
 }
 
 .details p {

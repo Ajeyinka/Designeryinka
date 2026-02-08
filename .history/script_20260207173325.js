@@ -395,12 +395,23 @@ window.addEventListener("load", () => {
     opacity: 0.1,
     y: 20,
     duration: 0.8,
-  }).from(".contacts", {
-    scale: 0.2,
-    opacity: 0.1,
-    y: 20,
-    duration: 0.2,
-  });
+  })
+    .from(".contacts", {
+      scale: 0.2,
+      opacity: 0.1,
+      y: 20,
+      duration: 0.2,
+    })
+
+    .from(
+      ".details",
+      {
+        scale: 0,
+        opacity: 0,
+        duration: 0.7,
+      },
+      "-=0.2"
+    );
 });
 
 (function () {
@@ -426,7 +437,7 @@ window.addEventListener("load", () => {
           scrub: true,
           ease: "none",
         },
-
+        filter: "blur(10px)",
         color: "#9fb770",
 
         stagger: 2, // Delay between each character animation
