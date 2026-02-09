@@ -1673,7 +1673,7 @@ body {
 }
 
 .loader-percent {
-  font-size: 5rem;
+  font-size: var(--fs-h1);
   letter-spacing: 0.1em;
   color: var(--pri-clr);
   font-family: var(--ff-headings);

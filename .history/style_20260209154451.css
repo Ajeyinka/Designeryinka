@@ -895,7 +895,7 @@ textarea {
 }
 
 .theme-blacks h2 span {
-  font-size: 0.4em;
+  font-size: 0.3em;
   display: block;
   text-transform: capitalize;
   font-family: var(--ff-normal);

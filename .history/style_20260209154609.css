@@ -1603,7 +1603,7 @@ footer {
 
 .accordion button[aria-expanded="true"] + .accordion-content {
   opacity: 1;
-  max-height: 9rem;
+  max-height: 10rem;
   transform: translateY(0);
 }
 

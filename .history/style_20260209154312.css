@@ -874,7 +874,7 @@ textarea {
 
 .theme-blacks h2 {
   color: var(--bg-clr);
-  font-size: clamp(2.5rem, 8vw, 3.5rem);
+  font-size: clamp(2.5rem, 8vw, 3rem);
   text-align: center;
   letter-spacing: -0.02em;
   background: linear-gradient(
@@ -895,11 +895,10 @@ textarea {
 }
 
 .theme-blacks h2 span {
-  font-size: 0.4em;
+  font-size: 0.3em;
   display: block;
   text-transform: capitalize;
   font-family: var(--ff-normal);
-  font-weight: 400;
 }
 
 @media (max-width: 900px) {

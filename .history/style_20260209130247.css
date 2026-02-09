@@ -1,15 +1,15 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap");
 
-.bebas-neue-regular {
-  font-family: "Bebas Neue", sans-serif;
+@font-face {
+  font-family: "Neue Haas Grotesk", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 .inter-tight {
   font-family: "Inter Tight", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 800;
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -21,7 +21,7 @@
   --btn-accent: #bbfd6a;
   --paragraph-clr: #000000;
   --max-width: 1400px;
-  --ff-headings: "Inter Tight", sans-serif;
+  --ff-headings: "Bebas Neue", sans-serif;
   --ff-normal: "Inter Tight", sans-serif;
 }
 
@@ -29,9 +29,9 @@
   --fs-p: clamp(1rem, 0.9135rem + 0.3846vw, 1.25rem);
   --fs-h5: clamp(1.2rem, 1.0745rem + 0.5577vw, 1.5625rem);
   --fs-h4: clamp(1.44rem, 1.2624rem + 0.7894vw, 1.9531rem);
-  --fs-h3: clamp(2.228rem, 2.4811rem + 2.0975vw, 2.8414rem);
-  --fs-h2: clamp(2.7736rem, 2.535rem + 3.5049vw, 3.2518rem);
-  --fs-h1: clamp(2.228rem, 2.4811rem + 2.0975vw, 2.8414rem);
+  --fs-h3: clamp(2.228rem, 2.4811rem + 2.0975vw, 3.4414rem);
+  --fs-h2: clamp(2.7736rem, 2.735rem + 3.5049vw, 3.8518rem);
+  --fs-h1: clamp(3.0736rem, 2.935rem + 3.5049vw, 4.018rem);
 }
 
 a {
@@ -71,30 +71,33 @@ h3,
 h4,
 h5 {
   font-family: var(--ff-headings);
-  text-transform: uppercase;
-  line-height: 1.2;
+
+  line-height: 1;
   text-wrap: balance;
-  font-weight: 700;
 }
 
 h1 {
   font-size: var(--fs-h1);
 
-  font-weight: 700;
+  font-weight: 400;
 }
 h2 {
   font-size: var(--fs-h2);
+  font-weight: 400;
 }
 h3 {
-  font-size: var(--fs-h4);
+  font-size: var(--fs-h3);
+  font-weight: 400;
 }
 
 h4 {
+  font-weight: 300;
 }
 p {
   color: var(--paragraph-clr);
   font-size: var(--fs-p);
   line-height: 1.5;
+  text-wrap: pretty;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -201,12 +204,13 @@ body {
 
 .button {
   padding: 0.5rem 1rem;
-  font-size: 1.2rem;
+  font-size: 16px;
   font-weight: 500;
   background: var(--accent-clr);
   color: var(--pri-clr);
   border-radius: 4px;
   font-family: var(--ff-headings);
+  font-size: 1.6rem;
 }
 
 .button-wrapper {
@@ -874,7 +878,7 @@ textarea {
 
 .theme-blacks h2 {
   color: var(--bg-clr);
-  font-size: clamp(2.5rem, 8vw, 3.5rem);
+  font-size: clamp(2.5rem, 8vw, 6rem);
   text-align: center;
   letter-spacing: -0.02em;
   background: linear-gradient(
@@ -886,7 +890,7 @@ textarea {
   -webkit-text-fill-color: transparent;
   width: 100%;
   display: block;
-  line-height: 1.8;
+  line-height: 1.1;
   margin-bottom: 40px;
 }
 
@@ -895,11 +899,9 @@ textarea {
 }
 
 .theme-blacks h2 span {
-  font-size: 0.4em;
+  font-size: 0.3em;
   display: block;
-  text-transform: capitalize;
   font-family: var(--ff-normal);
-  font-weight: 400;
 }
 
 @media (max-width: 900px) {
