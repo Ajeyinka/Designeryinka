@@ -34,6 +34,84 @@
   --fs-h1: clamp(2.228rem, 2.4811rem + 2.0975vw, 2.8414rem);
 }
 
+::view-transition-old(root) {
+  animation-delay: 500ms;
+}
+
+::view-transition-new(root) {
+  animation: circle-in 500ms;
+  /*   animation-timing-function: linear(0, 0.234 11.8%, 0.403 18.4%, 0.624 24.7%, 0.999 33.3%, 0.76 39.9%, 0.705 42.6%, 0.687 45.2%, 0.703 47.7%, 0.753 50.3%, 0.999 57.7%, 0.89 61.8%, 0.865 63.6%, 0.857 65.3%, 0.865 67%, 0.887 68.8%, 0.999 74.5%, 0.957 77.5%, 0.944 80.2%, 0.954 82.7%, 1 88.2%, 0.988 91.9%, 1); */
+}
+
+@keyframes move-in {
+  from {
+    translate: 0 -100%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes circle-in {
+  from {
+    clip-path: circle(0% at 50% 0%);
+  }
+  to {
+    clip-path: circle(120% at 50% 0%);
+  }
+}
+
+:root {
+  @media (prefers-color-scheme: light) {
+    --theme: ☀️;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --theme: 🌑;
+    color-scheme: dark;
+  }
+}
+
+body {
+  color-scheme: light;
+
+  --clr-body-bg: hsl(10, 25%, 95%);
+  --clr-card-bg: hsl(10, 25%, 98%);
+  --clr-text: #232323;
+  --clr-heading: hsl(18, 65%, 48%);
+
+  @container style(--theme: 🌑) {
+    color-scheme: dark;
+
+    --clr-body-bg: hsl(173, 10%, 7%);
+    --clr-card-bg: hsl(173, 30%, 10%);
+    --clr-text: #cbd5e1;
+    --clr-heading: hsl(173, 50%, 70%);
+  }
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.color-picker > fieldset {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  margin-inline: auto;
+  width: min-content;
+  border: 0;
+  background: canvas;
+  border-radius: 0 0 1rem 1rem;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -1530,11 +1608,10 @@ footer {
   position: relative;
   display: block;
   text-align: left;
-
-  min-width: 100%;
+  width: 100%;
   padding: 1rem 0;
   color: var(--bg-clr);
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-family: var(--ff-headings);
   font-weight: 400;
   border: none;
@@ -1558,10 +1635,7 @@ footer {
 .accordion button .accordion-title {
   padding: 0;
 }
-.accordion-title {
-  display: inline-flex;
-  max-width: 90%;
-}
+
 .accordion button .icon {
   display: inline-block;
   position: absolute;
@@ -1678,14 +1752,15 @@ body {
 
 .loader-percent {
   font-size: 5rem;
+  font-weight: 800;
   letter-spacing: 0.1em;
   color: var(--pri-clr);
   font-family: var(--ff-headings);
 }
 
 .loader-bar {
-  width: 140px;
-  height: 4px;
+  width: 200px;
+  height: 6px;
   background: var(--pri-clr);
   transform: scaleX(0);
   transform-origin: left;

@@ -385,19 +385,19 @@ gsap.to(".theme-blacks", {
   },
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   const tl = gsap.timeline({
     defaults: { ease: "power2.out" },
   });
 
   tl.from(".personalized-img", {
     scale: 0.2,
-    opacity: 0,
+    opacity: 0.1,
     y: 20,
     duration: 0.8,
   }).from(".contacts", {
     scale: 0.2,
-    opacity: 0,
+    opacity: 0.1,
     y: 20,
     duration: 0.2,
   });

@@ -1,3 +1,26 @@
+const themeSelect = document.querySelector("#theme");
+
+function updateTheme(selectedTheme) {
+  if (selectedTheme === "💻") {
+    document.documentElement.style.removeProperty("--theme");
+  } else {
+    document.documentElement.style.setProperty("--theme", selectedTheme);
+  }
+}
+
+themeSelect.addEventListener("change", (event) => {
+  const selectedTheme = event.target.value;
+
+  if (!document.startViewTransition) {
+    updateTheme(selectedTheme);
+    return;
+  }
+
+  document.startViewTransition(() => {
+    updateTheme(selectedTheme);
+  });
+});
+
 (function () {
   "use strict";
   const toggleButton = document.querySelector("#toggle_button");
@@ -385,19 +408,19 @@ gsap.to(".theme-blacks", {
   },
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   const tl = gsap.timeline({
     defaults: { ease: "power2.out" },
   });
 
   tl.from(".personalized-img", {
     scale: 0.2,
-    opacity: 0,
+    opacity: 0.1,
     y: 20,
     duration: 0.8,
   }).from(".contacts", {
     scale: 0.2,
-    opacity: 0,
+    opacity: 0.1,
     y: 20,
     duration: 0.2,
   });
@@ -427,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ease: "none",
         },
 
-        color: "#9fb770",
+        color: "var(--bg-clr)",
 
         stagger: 2, // Delay between each character animation
         duration: 2,

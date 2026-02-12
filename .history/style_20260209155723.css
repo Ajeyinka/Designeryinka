@@ -1530,11 +1530,10 @@ footer {
   position: relative;
   display: block;
   text-align: left;
-
-  min-width: 100%;
+  width: 100%;
   padding: 1rem 0;
   color: var(--bg-clr);
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-family: var(--ff-headings);
   font-weight: 400;
   border: none;
@@ -1558,10 +1557,7 @@ footer {
 .accordion button .accordion-title {
   padding: 0;
 }
-.accordion-title {
-  display: inline-flex;
-  max-width: 90%;
-}
+
 .accordion button .icon {
   display: inline-block;
   position: absolute;
@@ -1684,7 +1680,7 @@ body {
 }
 
 .loader-bar {
-  width: 140px;
+  width: 200px;
   height: 4px;
   background: var(--pri-clr);
   transform: scaleX(0);

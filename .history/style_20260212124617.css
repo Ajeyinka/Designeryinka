@@ -1531,10 +1531,10 @@ footer {
   display: block;
   text-align: left;
 
-  min-width: 100%;
+  width: 100%;
   padding: 1rem 0;
   color: var(--bg-clr);
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-family: var(--ff-headings);
   font-weight: 400;
   border: none;
@@ -1558,10 +1558,11 @@ footer {
 .accordion button .accordion-title {
   padding: 0;
 }
+
 .accordion-title {
-  display: inline-flex;
-  max-width: 90%;
+  text-wrap: wrap;
 }
+
 .accordion button .icon {
   display: inline-block;
   position: absolute;
