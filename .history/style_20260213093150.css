@@ -1816,9 +1816,8 @@ body {
 
 .cta {
   display: grid;
-  gap: 2rem;
   padding-block: 4rem;
-  justify-items: start;
+  justify-items: start; /* aligns items horizontally left */
 }
 
 #card-1 .card-back {

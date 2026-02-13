@@ -1811,14 +1811,6 @@ body {
   top: 1rem;
   left: 1rem;
   opacity: 0.4;
-  font-weight: 500;
-}
-
-.cta {
-  display: grid;
-  gap: 2rem;
-  padding-block: 4rem;
-  justify-items: start;
 }
 
 #card-1 .card-back {
@@ -1828,8 +1820,8 @@ body {
   background: var(--pri-clr);
   color: var(--bg-clr);
 
-  & p {
-    color: var(--bg-clr);
+  &p {
+    color: red;
   }
 }
 

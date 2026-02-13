@@ -528,8 +528,8 @@ window.addEventListener("load", () => {
               });
 
               gsap.to(["#card-1", "#card-3"], {
-                y: 10,
-                rotationZ: (i) => [-5, 5][i],
+                y: 30,
+                rotationZ: (i) => [-15, 15][i],
                 duration: 0.75,
                 ease: "power3.inOut",
               });

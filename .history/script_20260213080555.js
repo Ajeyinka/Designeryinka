@@ -393,10 +393,36 @@ window.addEventListener("load", () => {
 
   document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
+    gsap.config({ trialWarn: false });
 
-    /* ---------- LENIS (create once) ---------- */
-    const lenis = new Lenis();
+    /* ==================================================
+       LENIS SETUP (ONLY ONCE)
+    ================================================== */
+
+    const lenis = new Lenis({
+      smooth: true,
+      lerp: 0.08,
+    });
+
     lenis.on("scroll", ScrollTrigger.update);
+
+    ScrollTrigger.scrollerProxy(document.body, {
+      scrollTop(value) {
+        if (arguments.length) {
+          lenis.scrollTo(value);
+        } else {
+          return lenis.scroll.instance.scroll;
+        }
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+      },
+    });
 
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
@@ -404,153 +430,101 @@ window.addEventListener("load", () => {
 
     gsap.ticker.lagSmoothing(0);
 
-    /* ---------- ELEMENTS ---------- */
+    ScrollTrigger.defaults({
+      scroller: document.body,
+    });
+
+    /* ==================================================
+       THEME BLACKS (LAST SECTION PIN)
+    ================================================== */
+
+    const themeST = ScrollTrigger.create({
+      trigger: ".theme-blacks",
+      start: "top top",
+      end: "+=1200",
+      pin: true,
+      scrub: 1,
+    });
+
+    /* ==================================================
+       CARD SECTION (PINNED)
+    ================================================== */
+
     const cardContainer = document.querySelector(".card-container");
     const stickyHeader = document.querySelector(".sticky-header h2");
 
-    let isGapAnimationComplete = false;
-    let isFlipAnimationComplete = false;
-
     let cardTriggers = [];
+    let isGapDone = false;
+    let isFlipDone = false;
 
-    function initAnimations() {
-      /* Kill ONLY this section's triggers */
+    function initCardAnimations() {
       cardTriggers.forEach((t) => t.kill());
       cardTriggers = [];
 
       const mm = gsap.matchMedia();
 
-      /* ---------- MOBILE RESET ---------- */
       mm.add("(max-width:999px)", () => {
         document
           .querySelectorAll(".card, .card-container, .sticky-header h2")
           .forEach((el) => (el.style = ""));
       });
 
-      /* ---------- DESKTOP ANIMATION ---------- */
       mm.add("(min-width:1000px)", () => {
         const st = ScrollTrigger.create({
           trigger: ".sticky",
           start: "top top",
-          end: `+=${window.innerHeight * 4}px`,
+          end: `+=${window.innerHeight * 4}`,
           scrub: 1,
           pin: true,
           pinSpacing: true,
           onUpdate: (self) => {
-            const progress = self.progress;
+            const p = self.progress;
 
-            /* Header animation */
-            if (progress >= 0.1 && progress <= 0.25) {
-              const headerProgress = gsap.utils.mapRange(
-                0.1,
-                0.25,
-                0,
-                1,
-                progress
-              );
-
+            /* Header reveal */
+            if (p >= 0.1 && p <= 0.25) {
+              const hp = gsap.utils.mapRange(0.1, 0.25, 0, 1, p);
               gsap.set(stickyHeader, {
-                y: gsap.utils.mapRange(0, 1, 40, 0, headerProgress),
-                opacity: gsap.utils.mapRange(0, 1, 0, 1, headerProgress),
+                y: gsap.utils.mapRange(0, 1, 40, 0, hp),
+                opacity: hp,
               });
-            } else if (progress < 0.1) {
+            } else if (p < 0.1) {
               gsap.set(stickyHeader, { y: 40, opacity: 0 });
             } else {
               gsap.set(stickyHeader, { y: 0, opacity: 1 });
             }
 
-            /* Width animation */
-            if (progress <= 0.25) {
-              const widthPercentage = gsap.utils.mapRange(
-                0,
-                0.25,
-                75,
-                60,
-                progress
-              );
-              gsap.set(cardContainer, {
-                width: `${widthPercentage}%`,
-              });
+            /* Width shrink */
+            if (p <= 0.25) {
+              const w = gsap.utils.mapRange(0, 0.25, 75, 60, p);
+              gsap.set(cardContainer, { width: `${w}%` });
             } else {
               gsap.set(cardContainer, { width: "60%" });
             }
 
             /* Gap animation */
-            if (progress >= 0.35 && !isGapAnimationComplete) {
-              gsap.to(cardContainer, {
-                gap: "20px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to(["#card-1", "#card-2", "#card-3"], {
-                borderRadius: "8px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              isGapAnimationComplete = true;
-            } else if (progress < 0.35 && isGapAnimationComplete) {
-              gsap.to(cardContainer, {
-                gap: "0px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-1", {
-                borderRadius: "8px 0 0 8px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-2", {
-                borderRadius: "0px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-3", {
-                borderRadius: "0 8px 8px 0",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              isGapAnimationComplete = false;
+            if (p >= 0.35 && !isGapDone) {
+              gsap.to(cardContainer, { gap: "20px", duration: 0.5 });
+              isGapDone = true;
+            } else if (p < 0.35 && isGapDone) {
+              gsap.to(cardContainer, { gap: "0px", duration: 0.5 });
+              isGapDone = false;
             }
 
             /* Flip animation */
-            if (progress >= 0.7 && !isFlipAnimationComplete) {
+            if (p >= 0.7 && !isFlipDone) {
               gsap.to(".card", {
                 rotationY: 180,
                 duration: 0.75,
-                ease: "power3.inOut",
                 stagger: 0.1,
               });
-
-              gsap.to(["#card-1", "#card-3"], {
-                y: 10,
-                rotationZ: (i) => [-5, 5][i],
-                duration: 0.75,
-                ease: "power3.inOut",
-              });
-
-              isFlipAnimationComplete = true;
-            } else if (progress < 0.7 && isFlipAnimationComplete) {
+              isFlipDone = true;
+            } else if (p < 0.7 && isFlipDone) {
               gsap.to(".card", {
                 rotationY: 0,
                 duration: 0.75,
-                ease: "power3.inOut",
                 stagger: -0.1,
               });
-
-              gsap.to(["#card-1", "#card-3"], {
-                y: 0,
-                rotationZ: 0,
-                duration: 0.75,
-                ease: "power3.inOut",
-              });
-
-              isFlipAnimationComplete = false;
+              isFlipDone = false;
             }
           },
         });
@@ -561,33 +535,23 @@ window.addEventListener("load", () => {
       ScrollTrigger.refresh();
     }
 
-    initAnimations();
+    initCardAnimations();
 
-    /* ---------- RESIZE ---------- */
+    /* ==================================================
+       RESIZE HANDLING
+    ================================================== */
+
     let resizeTimer;
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        initAnimations();
+        initCardAnimations();
       }, 250);
     });
-  });
-})();
 
-(function () {
-  "use strict";
-  console.clear();
-  gsap.config({ trialWarn: false });
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.to(".theme-blacks", {
-    "--target": "0%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".theme-blacks",
-      start: "top top",
-      end: "+=1000",
-      pin: true,
-      scrub: 1,
-    },
+    /* Final layout stabilization */
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
   });
 })();

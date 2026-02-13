@@ -478,7 +478,7 @@ window.addEventListener("load", () => {
             /* Gap animation */
             if (progress >= 0.35 && !isGapAnimationComplete) {
               gsap.to(cardContainer, {
-                gap: "20px",
+                gap: "10px",
                 duration: 0.5,
                 ease: "power3.out",
               });

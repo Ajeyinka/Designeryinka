@@ -306,21 +306,24 @@ gsap.to(".floating-text", {
   });
 })();
 
-gsap.registerPlugin(ScrollTrigger);
+(function () {
+  "use strict";
+  gsap.registerPlugin(ScrollTrigger);
 
-gsap.from(".logo-marquee", {
-  x: 200,
-  y: 20,
-  width: "100vh",
-  opacity: 0.8,
-  ease: "none",
-  scrollTrigger: {
-    trigger: ".scrolls",
-    start: "top 90%",
-    end: "bottom 20%",
-    scrub: true,
-  },
-});
+  gsap.from(".logo-marquee", {
+    x: 200,
+    y: 20,
+    width: "100vh",
+    opacity: 0.8,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".scrolls",
+      start: "top 90%",
+      end: "bottom 20%",
+      scrub: true,
+    },
+  });
+})();
 
 gsap.utils.toArray(".portfolio-item").forEach((item) => {
   gsap.from(item, {
@@ -349,44 +352,75 @@ gsap.utils.toArray(".tabs_pane").forEach((panel) => {
   });
 });
 
-/* const text = new SplitType(".scroll-heading", {
-  types: "chars",
+(function () {
+  "use strict";
+})();
+console.clear();
+gsap.config({ trialWarn: false });
+gsap.registerPlugin(ScrollTrigger);
+gsap.to(".theme-blacks", {
+  "--target": "0%",
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".theme-blacks",
+    start: "top top",
+    end: "+=1000",
+    pin: true,
+    scrub: 1,
+  },
 });
 
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.to(text.chars, {
-  color: "var(--accent-clr)",
-  ease: "none",
-  stagger: {
-    each: 0.04,
-    from: "start",
-  },
-  scrollTrigger: {
-    trigger: ".scroll-heading",
-    start: "top 75%",
-    end: "bottom 40%",
-    scrub: true,
-  },
-}); */
-
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const tl = gsap.timeline({
     defaults: { ease: "power2.out" },
   });
 
   tl.from(".personalized-img", {
     scale: 0.2,
-    opacity: 0.1,
+    opacity: 0,
     y: 20,
     duration: 0.8,
   }).from(".contacts", {
     scale: 0.2,
-    opacity: 0.1,
+    opacity: 0,
     y: 20,
     duration: 0.2,
   });
 });
+
+(function () {
+  "use strict";
+  document.addEventListener("DOMContentLoaded", () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const textElements = document.querySelectorAll(".txt p");
+
+    textElements.forEach((textElement) => {
+      const text = textElement.textContent;
+      textElement.innerHTML = text
+        .split("")
+        .map((char) => `<span>${char}</span>`)
+        .join("");
+
+      const chars = textElement.querySelectorAll("span");
+
+      gsap.from(chars, {
+        scrollTrigger: {
+          trigger: textElement,
+          start: "top 85%",
+          end: "bottom 20%",
+          scrub: true,
+          ease: "none",
+        },
+
+        color: "#9fb770",
+
+        stagger: 2, // Delay between each character animation
+        duration: 2,
+      });
+    });
+  });
+})();
 
 (function () {
   "use strict";
@@ -528,8 +562,8 @@ window.addEventListener("load", () => {
               });
 
               gsap.to(["#card-1", "#card-3"], {
-                y: 10,
-                rotationZ: (i) => [-5, 5][i],
+                y: 30,
+                rotationZ: (i) => [-15, 15][i],
                 duration: 0.75,
                 ease: "power3.inOut",
               });
@@ -571,23 +605,5 @@ window.addEventListener("load", () => {
         initAnimations();
       }, 250);
     });
-  });
-})();
-
-(function () {
-  "use strict";
-  console.clear();
-  gsap.config({ trialWarn: false });
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.to(".theme-blacks", {
-    "--target": "0%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".theme-blacks",
-      start: "top top",
-      end: "+=1000",
-      pin: true,
-      scrub: 1,
-    },
   });
 })();

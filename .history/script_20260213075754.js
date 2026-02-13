@@ -370,6 +370,21 @@ gsap.to(text.chars, {
   },
 }); */
 
+console.clear();
+gsap.config({ trialWarn: false });
+gsap.registerPlugin(ScrollTrigger);
+gsap.to(".theme-blacks", {
+  "--target": "0%",
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".theme-blacks",
+    start: "top top",
+    end: "+=1000",
+    pin: true,
+    scrub: 1,
+  },
+});
+
 window.addEventListener("load", () => {
   const tl = gsap.timeline({
     defaults: { ease: "power2.out" },
@@ -387,6 +402,39 @@ window.addEventListener("load", () => {
     duration: 0.2,
   });
 });
+
+(function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const textElements = document.querySelectorAll(".txt p");
+
+    textElements.forEach((textElement) => {
+      const text = textElement.textContent;
+      textElement.innerHTML = text
+        .split("")
+        .map((char) => `<span>${char}</span>`)
+        .join("");
+
+      const chars = textElement.querySelectorAll("span");
+
+      gsap.from(chars, {
+        scrollTrigger: {
+          trigger: textElement,
+          start: "top 85%",
+          end: "bottom 20%",
+          scrub: true,
+          ease: "none",
+        },
+
+        color: "#9fb770",
+
+        stagger: 2, // Delay between each character animation
+        duration: 2,
+      });
+    });
+  });
+})();
 
 (function () {
   "use strict";
@@ -528,8 +576,8 @@ window.addEventListener("load", () => {
               });
 
               gsap.to(["#card-1", "#card-3"], {
-                y: 10,
-                rotationZ: (i) => [-5, 5][i],
+                y: 30,
+                rotationZ: (i) => [-15, 15][i],
                 duration: 0.75,
                 ease: "power3.inOut",
               });
@@ -571,23 +619,5 @@ window.addEventListener("load", () => {
         initAnimations();
       }, 250);
     });
-  });
-})();
-
-(function () {
-  "use strict";
-  console.clear();
-  gsap.config({ trialWarn: false });
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.to(".theme-blacks", {
-    "--target": "0%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".theme-blacks",
-      start: "top top",
-      end: "+=1000",
-      pin: true,
-      scrub: 1,
-    },
   });
 })();

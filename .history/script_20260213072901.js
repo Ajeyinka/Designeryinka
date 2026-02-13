@@ -370,224 +370,247 @@ gsap.to(text.chars, {
   },
 }); */
 
-window.addEventListener("load", () => {
+console.clear();
+gsap.config({ trialWarn: false });
+gsap.registerPlugin(ScrollTrigger);
+gsap.to(".theme-blacks", {
+  "--target": "0%",
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".theme-blacks",
+    start: "top top",
+    end: "+=1000",
+    pin: true,
+    scrub: 1,
+  },
+});
+
+document.addEventListener("DOMContentLoaded", () => {
   const tl = gsap.timeline({
     defaults: { ease: "power2.out" },
   });
 
   tl.from(".personalized-img", {
     scale: 0.2,
-    opacity: 0.1,
+    opacity: 0,
     y: 20,
     duration: 0.8,
   }).from(".contacts", {
     scale: 0.2,
-    opacity: 0.1,
+    opacity: 0,
     y: 20,
     duration: 0.2,
   });
 });
 
 (function () {
-  "use strict";
-
   document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
 
-    /* ---------- LENIS (create once) ---------- */
-    const lenis = new Lenis();
-    lenis.on("scroll", ScrollTrigger.update);
+    const textElements = document.querySelectorAll(".txt p");
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    textElements.forEach((textElement) => {
+      const text = textElement.textContent;
+      textElement.innerHTML = text
+        .split("")
+        .map((char) => `<span>${char}</span>`)
+        .join("");
 
-    gsap.ticker.lagSmoothing(0);
+      const chars = textElement.querySelectorAll("span");
 
-    /* ---------- ELEMENTS ---------- */
-    const cardContainer = document.querySelector(".card-container");
-    const stickyHeader = document.querySelector(".sticky-header h2");
+      gsap.from(chars, {
+        scrollTrigger: {
+          trigger: textElement,
+          start: "top 85%",
+          end: "bottom 20%",
+          scrub: true,
+          ease: "none",
+        },
 
-    let isGapAnimationComplete = false;
-    let isFlipAnimationComplete = false;
+        color: "#9fb770",
 
-    let cardTriggers = [];
-
-    function initAnimations() {
-      /* Kill ONLY this section's triggers */
-      cardTriggers.forEach((t) => t.kill());
-      cardTriggers = [];
-
-      const mm = gsap.matchMedia();
-
-      /* ---------- MOBILE RESET ---------- */
-      mm.add("(max-width:999px)", () => {
-        document
-          .querySelectorAll(".card, .card-container, .sticky-header h2")
-          .forEach((el) => (el.style = ""));
+        stagger: 2, // Delay between each character animation
+        duration: 2,
       });
-
-      /* ---------- DESKTOP ANIMATION ---------- */
-      mm.add("(min-width:1000px)", () => {
-        const st = ScrollTrigger.create({
-          trigger: ".sticky",
-          start: "top top",
-          end: `+=${window.innerHeight * 4}px`,
-          scrub: 1,
-          pin: true,
-          pinSpacing: true,
-          onUpdate: (self) => {
-            const progress = self.progress;
-
-            /* Header animation */
-            if (progress >= 0.1 && progress <= 0.25) {
-              const headerProgress = gsap.utils.mapRange(
-                0.1,
-                0.25,
-                0,
-                1,
-                progress
-              );
-
-              gsap.set(stickyHeader, {
-                y: gsap.utils.mapRange(0, 1, 40, 0, headerProgress),
-                opacity: gsap.utils.mapRange(0, 1, 0, 1, headerProgress),
-              });
-            } else if (progress < 0.1) {
-              gsap.set(stickyHeader, { y: 40, opacity: 0 });
-            } else {
-              gsap.set(stickyHeader, { y: 0, opacity: 1 });
-            }
-
-            /* Width animation */
-            if (progress <= 0.25) {
-              const widthPercentage = gsap.utils.mapRange(
-                0,
-                0.25,
-                75,
-                60,
-                progress
-              );
-              gsap.set(cardContainer, {
-                width: `${widthPercentage}%`,
-              });
-            } else {
-              gsap.set(cardContainer, { width: "60%" });
-            }
-
-            /* Gap animation */
-            if (progress >= 0.35 && !isGapAnimationComplete) {
-              gsap.to(cardContainer, {
-                gap: "20px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to(["#card-1", "#card-2", "#card-3"], {
-                borderRadius: "8px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              isGapAnimationComplete = true;
-            } else if (progress < 0.35 && isGapAnimationComplete) {
-              gsap.to(cardContainer, {
-                gap: "0px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-1", {
-                borderRadius: "8px 0 0 8px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-2", {
-                borderRadius: "0px",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              gsap.to("#card-3", {
-                borderRadius: "0 8px 8px 0",
-                duration: 0.5,
-                ease: "power3.out",
-              });
-
-              isGapAnimationComplete = false;
-            }
-
-            /* Flip animation */
-            if (progress >= 0.7 && !isFlipAnimationComplete) {
-              gsap.to(".card", {
-                rotationY: 180,
-                duration: 0.75,
-                ease: "power3.inOut",
-                stagger: 0.1,
-              });
-
-              gsap.to(["#card-1", "#card-3"], {
-                y: 10,
-                rotationZ: (i) => [-5, 5][i],
-                duration: 0.75,
-                ease: "power3.inOut",
-              });
-
-              isFlipAnimationComplete = true;
-            } else if (progress < 0.7 && isFlipAnimationComplete) {
-              gsap.to(".card", {
-                rotationY: 0,
-                duration: 0.75,
-                ease: "power3.inOut",
-                stagger: -0.1,
-              });
-
-              gsap.to(["#card-1", "#card-3"], {
-                y: 0,
-                rotationZ: 0,
-                duration: 0.75,
-                ease: "power3.inOut",
-              });
-
-              isFlipAnimationComplete = false;
-            }
-          },
-        });
-
-        cardTriggers.push(st);
-      });
-
-      ScrollTrigger.refresh();
-    }
-
-    initAnimations();
-
-    /* ---------- RESIZE ---------- */
-    let resizeTimer;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        initAnimations();
-      }, 250);
     });
   });
 })();
 
-(function () {
-  "use strict";
-  console.clear();
-  gsap.config({ trialWarn: false });
+document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
-  gsap.to(".theme-blacks", {
-    "--target": "0%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".theme-blacks",
-      start: "top top",
-      end: "+=1000",
-      pin: true,
-      scrub: 1,
-    },
+
+  const lenis = new Lenis();
+  lenis.on("scroll", ScrollTrigger.update);
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
   });
-})();
+  gsap.ticker.lagSmoothing(0);
+
+  const cardContainer = document.querySelector(".card-container");
+  const stickyHeader = document.querySelector(".sticky-header h1");
+
+  let isGapAnimationComplete = false;
+  let isFlipAnimationComplete = false;
+
+  function initAnimations() {
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(max-width:999px)", () => {
+      document
+        .querySelectorAll(".card, .card-container, .sticky-header h1")
+        .forEach((el) => (el.style = ""));
+
+      return {};
+    });
+
+    mm.add("(min-width:1000px)", () => {
+      ScrollTrigger.create({
+        trigger: ".sticky",
+        start: "top top",
+        end: `+=${window.innerHeight * 4}px`,
+        scrub: 1,
+        pin: true,
+        pinSpacing: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+
+          if (progress >= 0.1 && progress <= 0.25) {
+            const headerProgress = gsap.utils.mapRange(
+              0.1,
+              0.25,
+              0,
+              1,
+              progress
+            );
+            const yValue = gsap.utils.mapRange(0, 1, 40, 0, headerProgress);
+            const opacityValue = gsap.utils.mapRange(
+              0,
+              1,
+              0,
+              1,
+              headerProgress
+            );
+            gsap.set(stickyHeader, {
+              y: yValue,
+              opacity: opacityValue,
+            });
+          } else if (progress < 0.1) {
+            gsap.set(stickyHeader, {
+              y: 40,
+              opacity: 0,
+            });
+          } else if (progress > 0.25) {
+            gsap.set(stickyHeader, {
+              y: 0,
+              opacity: 1,
+            });
+          }
+
+          if (progress <= 0.25) {
+            const widthPercentage = gsap.utils.mapRange(
+              0,
+              0.25,
+              75,
+              60,
+              progress
+            );
+            gsap.set(cardContainer, {
+              width: `${widthPercentage}%`,
+            });
+          } else {
+            gsap.set(cardContainer, {
+              width: "60%",
+            });
+          }
+
+          if (progress >= 0.35 && !isGapAnimationComplete) {
+            gsap.to(cardContainer, {
+              gap: "20px",
+              duration: 0.5,
+              ease: "power3.out",
+            });
+
+            gsap.to(["#card-1", "#card-2", "#card-3"], {
+              borderRadius: "8px",
+              duration: 0.5,
+              ease: "power3.out",
+            });
+
+            isGapAnimationComplete = true;
+          } else if (progress < 0.35 && isGapAnimationComplete) {
+            gsap.to(cardContainer, {
+              gap: "0px",
+              duration: 0.5,
+              ease: "power3.out",
+            });
+
+            gsap.to("#card-1", {
+              borderRadius: "8px 0 0 8px",
+              duration: 0.5,
+              ease: "power3.out",
+            });
+
+            gsap.to("#card-2", {
+              borderRadius: "0px",
+              duration: 0.5,
+              ease: "power3.out",
+            });
+
+            gsap.to("#card-3", {
+              borderRadius: "0 8px 8px 0",
+              duration: 0.5,
+              ease: "power3.out",
+            });
+            isGapAnimationComplete = false;
+          }
+
+          if (progress >= 0.7 && !isFlipAnimationComplete) {
+            gsap.to(".card", {
+              rotationY: 180,
+              duration: 0.75,
+              ease: "power3.inOut",
+              stagger: 0.1,
+            });
+
+            gsap.to(["#card-1", "#card-3"], {
+              y: 30,
+              rotationZ: (i) => [-15, 15][i],
+              duration: 0.75,
+              ease: "power3.inOut",
+            });
+
+            isFlipAnimationComplete = true;
+          } else if (progress < 0.7 && isFlipAnimationComplete) {
+            gsap.to(".card", {
+              rotationY: 0,
+              duration: 0.75,
+              ease: "power3.inOut",
+              stagger: -0.1,
+            });
+
+            gsap.to(["#card-1", "#card-3"], {
+              y: 0,
+              rotationZ: 0,
+              duration: 0.75,
+              ease: "power3.inOut",
+            });
+
+            isFlipAnimationComplete = false;
+          }
+        },
+      });
+    });
+  }
+
+  initAnimations();
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      initAnimations();
+    }, 250);
+  });
+});

@@ -370,6 +370,21 @@ gsap.to(text.chars, {
   },
 }); */
 
+console.clear();
+gsap.config({ trialWarn: false });
+gsap.registerPlugin(ScrollTrigger);
+gsap.to(".theme-blacks", {
+  "--target": "0%",
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".theme-blacks",
+    start: "top top",
+    end: "+=1000",
+    pin: true,
+    scrub: 1,
+  },
+});
+
 window.addEventListener("load", () => {
   const tl = gsap.timeline({
     defaults: { ease: "power2.out" },
@@ -528,8 +543,8 @@ window.addEventListener("load", () => {
               });
 
               gsap.to(["#card-1", "#card-3"], {
-                y: 10,
-                rotationZ: (i) => [-5, 5][i],
+                y: 30,
+                rotationZ: (i) => [-15, 15][i],
                 duration: 0.75,
                 ease: "power3.inOut",
               });
@@ -571,23 +586,5 @@ window.addEventListener("load", () => {
         initAnimations();
       }, 250);
     });
-  });
-})();
-
-(function () {
-  "use strict";
-  console.clear();
-  gsap.config({ trialWarn: false });
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.to(".theme-blacks", {
-    "--target": "0%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".theme-blacks",
-      start: "top top",
-      end: "+=1000",
-      pin: true,
-      scrub: 1,
-    },
   });
 })();

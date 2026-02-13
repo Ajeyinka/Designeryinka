@@ -1787,38 +1787,20 @@ body {
   align-items: center;
 
   transform: rotateY(180deg);
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .card-back div {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 4rem;
-  margin-top: 8rem;
-  & p {
-    font-size: 14px;
-  }
 }
 .card-back h3 {
-  font-size: 24px;
-  text-transform: lowercase;
-  font-weight: 400;
-  font-style: italic;
+  font-size: 20px;
 }
 .card-back span {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 2rem;
+  left: 2rem;
   opacity: 0.4;
-  font-weight: 500;
-}
-
-.cta {
-  display: grid;
-  gap: 2rem;
-  padding-block: 4rem;
-  justify-items: start;
 }
 
 #card-1 .card-back {
@@ -1827,10 +1809,6 @@ body {
 #card-2 .card-back {
   background: var(--pri-clr);
   color: var(--bg-clr);
-
-  & p {
-    color: var(--bg-clr);
-  }
 }
 
 #card-3 .card-back {
