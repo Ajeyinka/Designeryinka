@@ -306,28 +306,25 @@ gsap.to(".floating-text", {
   });
 })();
 
-(function () {
-  "use strict";
-  gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-  const mm = gsap.matchMedia();
+const mm = gsap.matchMedia();
 
-  mm.add("(min-width: 1000px)", () => {
-    gsap.from(".logo-marquee", {
-      x: 200,
-      y: 20,
-      width: "100vh",
-      opacity: 0.8,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".scrolls",
-        start: "top 90%",
-        end: "bottom 20%",
-        scrub: true,
-      },
-    });
+mm.add("(min-width: 1000px)", () => {
+  gsap.from(".logo-marquee", {
+    x: 200,
+    y: 20,
+    width: "100vh",
+    opacity: 0.8,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".scrolls",
+      start: "top 90%",
+      end: "bottom 20%",
+      scrub: true,
+    },
   });
-})();
+});
 
 gsap.utils.toArray(".portfolio-item").forEach((item) => {
   gsap.from(item, {

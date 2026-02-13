@@ -781,10 +781,6 @@ textarea {
       font-size: 16px;
     }
   }
-
-  .cta h2 {
-    font-size: 2rem;
-  }
 }
 .form-block.is-loading .input,
 .form-block.is-loading select,
@@ -1693,8 +1689,8 @@ body {
 }
 
 .loader-bar {
-  width: 140px;
-  height: 4px;
+  width: 1000px;
+  height: 6px;
   background: var(--pri-clr);
   transform: scaleX(0);
   transform-origin: left;

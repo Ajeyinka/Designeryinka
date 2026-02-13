@@ -781,10 +781,6 @@ textarea {
       font-size: 16px;
     }
   }
-
-  .cta h2 {
-    font-size: 2rem;
-  }
 }
 .form-block.is-loading .input,
 .form-block.is-loading select,
@@ -1690,11 +1686,12 @@ body {
   letter-spacing: 0.1em;
   color: var(--pri-clr);
   font-family: var(--ff-headings);
+  margin-bottom: 3rem;
 }
 
 .loader-bar {
-  width: 140px;
-  height: 4px;
+  width: 120px;
+  height: 6px;
   background: var(--pri-clr);
   transform: scaleX(0);
   transform-origin: left;

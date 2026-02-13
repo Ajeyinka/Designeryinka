@@ -306,28 +306,27 @@ gsap.to(".floating-text", {
   });
 })();
 
-(function () {
-  "use strict";
-  gsap.registerPlugin(ScrollTrigger);
+(function () {})();
 
-  const mm = gsap.matchMedia();
+gsap.registerPlugin(ScrollTrigger);
 
-  mm.add("(min-width: 1000px)", () => {
-    gsap.from(".logo-marquee", {
-      x: 200,
-      y: 20,
-      width: "100vh",
-      opacity: 0.8,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".scrolls",
-        start: "top 90%",
-        end: "bottom 20%",
-        scrub: true,
-      },
-    });
+const mm = gsap.matchMedia();
+
+mm.add("(min-width: 1000px)", () => {
+  gsap.from(".logo-marquee", {
+    x: 200,
+    y: 20,
+    width: "100vh",
+    opacity: 0.8,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".scrolls",
+      start: "top 90%",
+      end: "bottom 20%",
+      scrub: true,
+    },
   });
-})();
+});
 
 gsap.utils.toArray(".portfolio-item").forEach((item) => {
   gsap.from(item, {
