@@ -172,6 +172,7 @@
                       name="name"
                       class="input"
                       id="name"
+                      required
                       placeholder="JOHN DOE"
                     />
                   </label>
@@ -194,8 +195,6 @@
 
                     <input
                       type="tel"
-                      name="phone"
-                      id="phone"
                       class="input phone-input"
                       placeholder="+1 801 234 5678"
                       inputmode="tel"
@@ -215,10 +214,6 @@
                     ></textarea>
                   </label>
                 </fieldset>
-                <div id="messagebox">
-                  <p>Please Fix These Errors</p>
-                  <ul></ul>
-                </div>
                 <div>
                   <button type="submit" class="button anime">
                     <span>Send Message</span>
@@ -226,6 +221,10 @@
                 </div>
                 <div class="form-success">
                   Thanks for reaching out. I’ll get back to you within 24 hours.
+                </div>
+                <div id="messagebox">
+                  <h4>Please Fix These Errors</h4>
+                  <ul></ul>
                 </div>
               </form>
             </div>
@@ -392,54 +391,42 @@
       const form = document.getElementById("myform");
       const messageBox = document.getElementById("messagebox");
       const errorList = messageBox.querySelector("ul");
-      const successMessage = document.querySelector(".form-success");
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // Reset UI
         errorList.innerHTML = "";
         messageBox.style.display = "none";
-        successMessage.style.display = "none";
 
         let errors = [];
 
-        const name = form.querySelector("#name").value.trim();
-        const email = form.querySelector("#email").value.trim();
-        const phone = form.querySelector("#phone").value.trim();
-        const textarea = form.querySelector("#textarea").value.trim();
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const phone = form.phone.value.trim();
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^[0-9+\-\s()]{7,15}$/;
-        const nameRegex = /^[A-Za-z\s'-]{2,}$/;
 
         // Name
         if (!name) {
-          errors.push("Please provide your name.");
-        } else if (!nameRegex.test(name)) {
-          errors.push("Name cannot contain numbers.");
+          errors.push("Hi there please provide your name");
         }
 
         // Email
         if (!email) {
-          errors.push("You must provide an email.");
+          errors.push("You must provide an email");
         } else if (!emailRegex.test(email)) {
-          errors.push("Please enter a valid email address.");
+          errors.push("A valid email address, please");
         }
 
         // Phone
         if (!phone) {
-          errors.push("Please provide a phone number.");
+          errors.push("please provide a phone number");
         } else if (!phoneRegex.test(phone)) {
-          errors.push("Please enter a valid phone number.");
+          errors.push("please type a valid number");
         }
 
-        // Message
-        if (!textarea) {
-          errors.push("Please tell me about your project.");
-        }
-
-        // Show errors
+        // Display errors
         if (errors.length > 0) {
           messageBox.style.display = "block";
 
@@ -452,11 +439,8 @@
           return;
         }
 
-        // If validation passes → submit to Formspree
+        // If no errors, submit form
         form.submit();
-
-        // Optional: show success without redirect (only if you later switch to fetch)
-        // successMessage.style.display = "block";
       });
     });
   </script>

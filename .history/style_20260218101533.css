@@ -727,7 +727,7 @@ textarea {
 #messagebox {
   display: none; /* hidden by default */
   max-width: 100%;
-  padding: 1rem;
+  padding: 15px;
   border: 2px solid #ff4d4d;
   background: #ffe5e5;
   color: #990000;
@@ -741,12 +741,11 @@ textarea {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  list-style-type: none;
 }
 
 #messagebox li {
   margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .button-submit:active {

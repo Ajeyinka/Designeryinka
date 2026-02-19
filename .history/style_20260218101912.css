@@ -727,7 +727,7 @@ textarea {
 #messagebox {
   display: none; /* hidden by default */
   max-width: 100%;
-  padding: 1rem;
+  padding: 0.6rem;
   border: 2px solid #ff4d4d;
   background: #ffe5e5;
   color: #990000;
@@ -736,7 +736,7 @@ textarea {
 }
 
 #messagebox ul {
-  margin: 10px 0 0;
+  margin: 4px 0 0;
   padding-left: 20px;
   display: flex;
   gap: 8px;

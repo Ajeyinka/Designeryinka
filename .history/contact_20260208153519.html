@@ -159,19 +159,16 @@
                   <h4>+1 (303) 522-9101</h4>
                 </div>
               </div>
-              <form
-                action="https://formspree.io/f/mreagbkp"
-                method="POST"
-                id="myform"
-              >
+              <form action="https://formspree.io/f/mreagbkp" method="POST">
                 <fieldset>
-                  <label for="name">
+                  <label for="firstName">
                     01 - YOUR NAME
                     <input
                       type="text"
-                      name="name"
+                      name="firstName"
                       class="input"
-                      id="name"
+                      id="firstName"
+                      required
                       placeholder="JOHN DOE"
                     />
                   </label>
@@ -184,6 +181,7 @@
                       name="email"
                       class="input"
                       id="email"
+                      required
                       placeholder="JOHN@EXAMPLE.COM"
                     />
                   </label>
@@ -194,8 +192,6 @@
 
                     <input
                       type="tel"
-                      name="phone"
-                      id="phone"
                       class="input phone-input"
                       placeholder="+1 801 234 5678"
                       inputmode="tel"
@@ -215,10 +211,6 @@
                     ></textarea>
                   </label>
                 </fieldset>
-                <div id="messagebox">
-                  <p>Please Fix These Errors</p>
-                  <ul></ul>
-                </div>
                 <div>
                   <button type="submit" class="button anime">
                     <span>Send Message</span>
@@ -387,77 +379,4 @@
       </div>
     </footer>
   </body>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("myform");
-      const messageBox = document.getElementById("messagebox");
-      const errorList = messageBox.querySelector("ul");
-      const successMessage = document.querySelector(".form-success");
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        // Reset UI
-        errorList.innerHTML = "";
-        messageBox.style.display = "none";
-        successMessage.style.display = "none";
-
-        let errors = [];
-
-        const name = form.querySelector("#name").value.trim();
-        const email = form.querySelector("#email").value.trim();
-        const phone = form.querySelector("#phone").value.trim();
-        const textarea = form.querySelector("#textarea").value.trim();
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^[0-9+\-\s()]{7,15}$/;
-        const nameRegex = /^[A-Za-z\s'-]{2,}$/;
-
-        // Name
-        if (!name) {
-          errors.push("Please provide your name.");
-        } else if (!nameRegex.test(name)) {
-          errors.push("Name cannot contain numbers.");
-        }
-
-        // Email
-        if (!email) {
-          errors.push("You must provide an email.");
-        } else if (!emailRegex.test(email)) {
-          errors.push("Please enter a valid email address.");
-        }
-
-        // Phone
-        if (!phone) {
-          errors.push("Please provide a phone number.");
-        } else if (!phoneRegex.test(phone)) {
-          errors.push("Please enter a valid phone number.");
-        }
-
-        // Message
-        if (!textarea) {
-          errors.push("Please tell me about your project.");
-        }
-
-        // Show errors
-        if (errors.length > 0) {
-          messageBox.style.display = "block";
-
-          errors.forEach(function (error) {
-            const li = document.createElement("li");
-            li.textContent = error;
-            errorList.appendChild(li);
-          });
-
-          return;
-        }
-
-        // If validation passes → submit to Formspree
-        form.submit();
-
-        // Optional: show success without redirect (only if you later switch to fetch)
-        // successMessage.style.display = "block";
-      });
-    });
-  </script>
 </html>
