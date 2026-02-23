@@ -94,7 +94,7 @@
     link.addEventListener("mouseleave", () => animateText("down"));
   });
 })();
-/*
+
 (function () {
   "use strict";
 
@@ -105,7 +105,7 @@
     // Adjust this once
     const OFFSET = 150; // header height + breathing room
 
-    /* ---------- smooth scroll ---------- 
+    /* ---------- smooth scroll ---------- */
     links.forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
@@ -123,7 +123,7 @@
       });
     });
 
-    /* ---------- intersection observer ---------- 
+    /* ---------- intersection observer ---------- */
     let activeId = null;
 
     const observer = new IntersectionObserver(
@@ -156,7 +156,7 @@
 
     sections.forEach((section) => observer.observe(section));
   });
-})(); */
+})();
 
 const items = document.querySelectorAll(".accordion button");
 
@@ -394,7 +394,23 @@ window.addEventListener("load", () => {
     duration: 0.2,
   });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  gsap.registerPlugin(ScrollTrigger);
 
+  const mm = gsap.matchMedia();
+
+  mm.add("(min-width: 1000px)", () => {
+    const lenis = new Lenis();
+
+    lenis.on("scroll", ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+  });
+});
 (function () {
   "use strict";
 

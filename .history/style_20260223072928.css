@@ -570,12 +570,10 @@ body {
 }
 
 .value h2 {
-  max-width: 40ch;
+  max-width: 1100px;
   text-transform: capitalize;
   font-weight: 500;
-  line-height: 1.2;
-  font-size: var(--fs-h3);
-  text-wrap: pretty;
+  line-height: 1.5;
 }
 
 .tag {
@@ -1839,8 +1837,9 @@ body {
 }
 .card-back h3 {
   font-size: 24px;
-  text-transform: capitalize;
+  text-transform: lowercase;
   font-weight: 400;
+  font-style: italic;
 }
 .card-back span {
   position: absolute;
