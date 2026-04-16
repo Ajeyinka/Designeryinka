@@ -169,6 +169,7 @@ body {
 }
 
 .theme-brand {
+  background: #9ae600;
 }
 
 .container_large {
@@ -1829,16 +1830,16 @@ body {
 
 .card-back {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: left;
+  align-items: center;
 
   transform: rotateY(180deg);
   padding: 1rem;
 }
 
 .card-back img {
-  width: 20px;
+  width: 40px;
+  height: 40px;
 }
 
 .card-back div {

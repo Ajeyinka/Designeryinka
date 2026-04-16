@@ -169,6 +169,7 @@ body {
 }
 
 .theme-brand {
+  background: #9ae600;
 }
 
 .container_large {
@@ -1838,7 +1839,7 @@ body {
 }
 
 .card-back img {
-  width: 20px;
+  width: 40px;
 }
 
 .card-back div {
